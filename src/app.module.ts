@@ -6,9 +6,13 @@ import { PacientesModule } from './pacientes/pacientes.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConsultasModule } from './consultas/consultas.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST || 'localhost',
@@ -17,7 +21,7 @@ import { ConsultasModule } from './consultas/consultas.module';
       password: process.env.DB_PASSWORD || 'secret',
       database: process.env.DB_DATABASE || 'sghss',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      synchronize: false,
     }),
     PacientesModule,
     UsersModule,
