@@ -1,98 +1,112 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# **SGHSS \- API do Sistema de Gestão Hospitalar e de Serviços de Saúde**
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## **Visão Geral**
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Este repositório contém a API back-end para o Sistema de Gestão Hospitalar e de Serviços de Saúde (SGHSS). O projeto foi desenvolvido como uma solução robusta e escalável para o gerenciamento de usuários (pacientes, profissionais de saúde), agendamentos de consultas e dados de pacientes, seguindo as melhores práticas de arquitetura de software e segurança.
 
-## Description
+A aplicação é construída sobre o framework **NestJS** e utiliza **TypeScript**, garantindo um código fortemente tipado e de fácil manutenção. O ambiente de desenvolvimento e produção é totalmente containerizado com **Docker**, proporcionando consistência e facilidade de implantação.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## **Principais Funcionalidades**
 
-## Project setup
+* **Autenticação e Autorização:** Sistema seguro baseado em JSON Web Tokens (JWT) com autorização por papéis (Role-Based Access Control \- RBAC) para diferentes tipos de usuários (Administrador, Profissional, Paciente).  
+* **Gerenciamento de Usuários:** Operações CRUD completas para gerenciar os usuários do sistema.  
+* **Gerenciamento de Pacientes:** Operações CRUD para dados específicos de pacientes, com busca paginada e filtros.  
+* **Agendamento de Consultas:** Endpoints para criar, visualizar, atualizar e cancelar consultas, respeitando as regras de negócio e permissões de cada usuário.  
+* **Ambiente Containerizado:** Configuração completa com Docker e Docker Compose para a API e o banco de dados PostgreSQL.  
+* **Migrations de Banco de Dados:** Uso de migrations do TypeORM para um gerenciamento seguro e versionado do schema do banco de dados.  
+* **Documentação de API:** Geração automática de documentação interativa com Swagger (OpenAPI).  
+* **Validação de Dados:** Validação de entrada robusta utilizando class-validator e Pipes do NestJS.
 
-```bash
-$ yarn install
+## **Tecnologias Utilizadas**
+
+* **Framework:** NestJS  
+* **Linguagem:** TypeScript  
+* **Banco de Dados:** PostgreSQL  
+* **ORM:** TypeORM  
+* **Containerização:** Docker, Docker Compose  
+* **Autenticação:** Bearer Token JWT  
+* **Documentação:** Swagger (OpenAPI)
+
+## **Pré-requisitos**
+
+Para executar este projeto localmente, você precisará ter as seguintes ferramentas instaladas:
+
+* [Node.js](https://nodejs.org/) (v18 ou superior)  
+* [Docker](https://www.docker.com/get-started)  
+* [Docker Compose](https://docs.docker.com/compose/install/)
+
+## **Guia de Instalação e Execução**
+
+Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento.
+
+### **1\. Clonar o Repositório**
+
+```git 
+git clone https://github.com/seu-usuario/sghss-api.git  
+cd sghss-api
 ```
 
-## Compile and run the project
+### **2\. Configurar Variáveis de Ambiente**
+
+Crie um arquivo .env na raiz do projeto, copiando o exemplo .env.example. Este arquivo conterá as variáveis sensíveis da aplicação.
 
 ```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+# Crie o arquivo .env  
+touch .env
 ```
 
-## Run tests
+Abra o arquivo .env e adicione o seguinte conteúdo:
+```javascript
+# Segredo para a assinatura do JSON Web Token (JWT)  
+# IMPORTANTE: Use uma chave forte e segura em um ambiente de produção  
+JWT_SECRET=EsteEhUmSegredoMuitoForteNaoCompartilhe
 
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+# Configurações do Banco de Dados (usadas pelo TypeORM CLI)  
+DB_HOST=localhost  
+DB_PORT=5432  
+DB_USERNAME=postgres  
+DB_PASSWORD=secret  
+DB_DATABASE=sghss
 ```
 
-## Deployment
+### **3\. Iniciar os Contêineres**
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Com o Docker em execução, suba os contêineres da API e do banco de dados com o Docker Compose. O comando \--build garante que a imagem da API seja construída a partir do dockerfile.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ yarn install -g @nestjs/mau
-$ mau deploy
+```docker
+docker-compose up --build
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+A API estará disponível em http://localhost:3000.
 
-## Resources
+## **Migrations do Banco de Dados**
 
-Check out a few resources that may come in handy when working with NestJS:
+As alterações no schema do banco de dados são gerenciadas através de migrations do TypeORM.
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+**Importante:** Os comandos de migration devem ser executados dentro do contêiner da API para garantir a conexão correta com o banco de dados.
 
-## Support
+### **Gerar uma Nova Migration**
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Após fazer alterações nas suas entidades (.entity.ts), gere uma nova migration com o seguinte comando:
 
-## Stay in touch
+```docker
+docker-compose exec api npm run migration:generate -n NomeDaSuaMigration
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+*Substitua NomeDaSuaMigration por um nome descritivo (ex: AddTelefoneToPaciente).*
 
-## License
+### **Executar Migrations**
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Para aplicar todas as migrations pendentes e atualizar o banco de dados, execute:
+
+```docker
+docker-compose exec api npm run migration:run
+```
+
+## **Documentação da API (Swagger)**
+
+A documentação completa e interativa dos endpoints está disponível através do Swagger UI. Com a aplicação em execução, acesse a seguinte URL no seu navegador:
+
+[http://localhost:3000/api-docs](https://www.google.com/search?q=http://localhost:3000/api-docs)
+
+A documentação permite visualizar todos os endpoints, seus parâmetros, corpos de requisição e respostas esperadas, além de permitir o teste direto das rotas (não se esqueça de usar o botão "Authorize" para testar rotas protegidas).
