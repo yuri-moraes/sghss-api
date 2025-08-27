@@ -2,7 +2,6 @@ services:
   api:
     build: .
     container_name: sghss_api
-    command: tail -f /dev/null
     env_file:
       - .env
     ports:
@@ -16,6 +15,12 @@ services:
       - DB_PASSWORD=secret
       - DB_DATABASE=sghss
       - PORT=3000
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
   db:
     image: postgres:15
     container_name: sghss_db
@@ -27,6 +32,12 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    # Adicione um healthcheck para o banco
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres_data:

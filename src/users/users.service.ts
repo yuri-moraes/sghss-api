@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindManyOptions, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
+import { User, UserRole } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -17,8 +17,24 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
-  findAll() {
-    return this.userRepository.find();
+  async findAll(role?: UserRole, page: number = 1, limit: number = 10) {
+    const options: FindManyOptions<User> = {
+      skip: (page - 1) * limit,
+      take: limit,
+    };
+
+    if (role) {
+      options.where = { role };
+    }
+
+    const [data, total] = await this.userRepository.findAndCount(options);
+
+    return {
+      data,
+      total,
+      page,
+      limit,
+    };
   }
 
   findOne(id: string) {
@@ -29,8 +45,9 @@ export class UsersService {
     return this.userRepository.findOneBy({ email });
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    await this.userRepository.update(id, updateUserDto);
+    return this.findOne(id);
   }
 
   remove(id: string) {
