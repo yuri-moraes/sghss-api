@@ -12,4 +12,10 @@ export default new DataSource({
   database: process.env.DB_DATABASE,
   entities: ['dist/**/*.entity.js'],
   migrations: ['dist/migrations/*.js'],
+  ssl: true,
+  extra: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
 });
