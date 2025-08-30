@@ -53,11 +53,11 @@ async function bootstrap() {
     .addTag('pacientes', 'Cadastro e gerenciamento de pacientes')
     .addTag('consultas', 'Agendamento e controle de consultas')
     .addServer('http://localhost:3000', 'Ambiente de Desenvolvimento')
-    .addServer('https://api.sghss.com', 'Ambiente de Produção')
+    .addServer('https://sghss-yuri.fly.dev/', 'Ambiente de Produção')
     .setContact(
       'Equipe de Desenvolvimento SGHSS',
-      'https://sghss.com',
-      'dev@sghss.com',
+      'https://github.com/yuri-moraes',
+      'yuri.nogueira.de.moraes@hotmail.com',
     )
     .setLicense('MIT', 'https://opensource.org/licenses/MIT')
     .build();
