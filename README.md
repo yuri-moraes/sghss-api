@@ -77,7 +77,7 @@ Com o Docker em execução, suba os contêineres da API e do banco de dados com 
 docker-compose up --build
 ```
 
-A API estará disponível em http://localhost:3000.
+A API estará disponível em https://sghss-yuri.fly.dev.
 
 ## **Migrations do Banco de Dados**
 
@@ -107,6 +107,6 @@ docker-compose exec api npm run migration:run
 
 A documentação completa e interativa dos endpoints está disponível através do Swagger UI. Com a aplicação em execução, acesse a seguinte URL no seu navegador:
 
-[http://localhost:3000/api-docs](https://www.google.com/search?q=http://localhost:3000/api-docs)
+https://sghss-yuri.fly.dev/api-docs
 
 A documentação permite visualizar todos os endpoints, seus parâmetros, corpos de requisição e respostas esperadas, além de permitir o teste direto das rotas (não se esqueça de usar o botão "Authorize" para testar rotas protegidas).
